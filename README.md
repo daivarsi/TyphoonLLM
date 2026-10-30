@@ -2,7 +2,7 @@
 
 **Fully local LLM inference on PlayStation Vita.**
 
-TyphoonLLM is an offline conversation application designed for homebrew-capable PS Vita hardware. It runs Liquid AIâ€™s LFM2.5-230M through a native ARMv7 runtime, evolving from earlier VitaLM and WoozyLLM experimentation. **03.05 is the current stable installed release**, retaining documented model limitations.
+TyphoonLLM is an offline conversation application designed for homebrew-capable PS Vita hardware. It runs Liquid AI's LFM2.5-230M through a native ARMv7 runtime, evolving from earlier VitaLM and WoozyLLM experimentation. **03.05 is the current stable installed release**, retaining documented model limitations.
 
 ## Features
 
