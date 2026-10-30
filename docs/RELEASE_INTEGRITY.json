@@ -1,0 +1,37 @@
+{
+  "version": "03.05",
+  "files": {
+    "model.vlp": {
+      "sha256": "5776ca33e876117c040addce3bfd41a6652e35c7d30d7b0948095340b723ab6d",
+      "bytes": 244215040
+    },
+    "MODEL_LICENSE.txt": {
+      "sha256": "ee33e399da3f8f70d3101567f6ab7d3f29ce174397a137fe0b02f4603489f132",
+      "bytes": 10645
+    },
+    "RELEASE_NOTES.md": {
+      "sha256": "205dc6ec320b9f4f87927aea9f4c3df08ccbbf16eb9559098be4c379524f2b8c",
+      "bytes": 2324
+    },
+    "START_HERE.txt": {
+      "sha256": "88d47d0a7230775e438ecd05bc6fdb7d73d101a5196e4285d68b089e5586ce2a",
+      "bytes": 1616
+    },
+    "tokenizer.bin": {
+      "sha256": "4c35695383354807cfd63e2e1574b7a24d5b792dc32d1471e26fb377f79f88c6",
+      "bytes": 935367
+    },
+    "TyphoonLLM-v03.05-final.vpk": {
+      "sha256": "de0ab404ce24d00d70a8ca4d124b0a4b152aed18f5151c6df4631030b0676e07",
+      "bytes": 1168796
+    },
+    "TyphoonLLM-v03.05-install-kit.zip": {
+      "sha256": "f74f8e64aa833d91067a7842624ebf98527fbe461dae5bad1761a0f1c2e13f69",
+      "bytes": 246332060
+    },
+    "TyphoonLLM-v03.05-public-source.zip": {
+      "sha256": "fa9af81c8fc7a96796a102a896afbde88a7a710959acfdf1cc310911cce80a20",
+      "bytes": 2170034
+    }
+  }
+}
