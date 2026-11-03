@@ -1,4 +1,10 @@
-# Install TyphoonLLM 03.05
+# Install TyphoonLLM 03.06
+
+For an existing installation, download `TyphoonLLM-v03.06-runtime.vpk` from the [03.06 release](https://github.com/daivarsi/TyphoonLLM/releases/tag/v03.06), copy it to the Vita, and install it in VitaShell. Keep `ux0:data/VitaLMChat/` and its model/tokenizer/license files. The title ID remains `VLMCHAT01`.
+
+For a fresh installation, first obtain the unchanged model/tokenizer/license in the [03.05 install kit](https://github.com/daivarsi/TyphoonLLM/releases/tag/v03.05), using the steps below, then install the 03.06 VPK. Model files are not bundled in the runtime VPK.
+
+## Original model installation (03.05 kit)
 
 Requires a homebrew-capable PS Vita and VitaShell.
 

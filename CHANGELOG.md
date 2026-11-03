@@ -1,5 +1,14 @@
 # Changelog
 
+## 03.06 — runtime update
+
+- Avoid unused vocabulary projections during intermediate prompt prefill; final prompt and every generated token retain full scoring.
+- Preserve existing clock profiles, model weights, offline prompt and precision.
+- Remove the colored marker beside Offline so it cannot be mistaken for online status.
+- Add 54 portable session control-flow checks and physical paired measurements.
+
+
+
 ## 03.05
 
 - Typhoon branding, cyclone icon, launch art and native keyboard title.

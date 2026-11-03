@@ -3,6 +3,9 @@
  * pos always counts tokens actually forwarded; pending is sampled but un-fed. */
 #include "session.h"
 #include "profile.h"
+#include "dbg.h"
+static int s_prefill_head_skip=1;
+void session_set_prefill_head_skip(int enabled){s_prefill_head_skip=enabled!=0;}
 #include <string.h>
 #include <ctype.h>
 int engine_batch_prepare(Transformer*);
@@ -20,11 +23,12 @@ int session_start(Session*s,const int*ids,int n,int soft,int hard,int reuse){
  s->reused=match?s->pos:0;s->rebuilt=!match;
  if(!match)session_reset(s);
  s->text[0]=0;s->total_count=0;s->has_pending=0;budget(s,soft,hard);
- float*logits=0;
+ float*logits=0;int head_evals=0,head_skips=0,start_pos=s->pos;
  while(s->pos<n){if(s->cancelled&&s->cancelled(s->emit_user)){s->reason=END_STOP;return -4;}int p=s->pos;
-  if(p+4<=n){logits=engine_forward_batch4(s->model,ids+p,p);if(!logits)return -3;memcpy(s->fed+p,ids+p,4*sizeof(int));s->pos+=4;}
-  else{logits=engine_forward(s->model,ids[p],p);if(!logits)return -3;s->fed[s->pos++]=ids[p];}
+  if(p+4<=n){int need=!s_prefill_head_skip||p+4==n;head_evals+=need;head_skips+=!need;logits=engine_prefill_batch4(s->model,ids+p,p,need);if(!logits)return -3;memcpy(s->fed+p,ids+p,4*sizeof(int));s->pos+=4;}
+  else{int need=!s_prefill_head_skip||p+1==n;head_evals+=need;head_skips+=!need;logits=engine_prefill(s->model,ids[p],p,need);if(!logits)return -3;s->fed[s->pos++]=ids[p];}
  }
+ dbg_log("PREFILL_HEAD_OPT enabled=%d forwarded=%d head_evals=%d head_skips=%d",s_prefill_head_skip,n-start_pos,head_evals,head_skips);
  s->pending=greedy(s,logits);s->has_pending=1;return 0;
 }
 int session_can_continue(const Session*s){return s->has_pending&&(s->reason==END_HARD||s->reason==END_SOFT||s->reason==END_STOP||s->reason==END_BUFFER)&&s->pos<SESSION_CONTEXT-2&&strlen(s->text)<SESSION_TEXT-256;}

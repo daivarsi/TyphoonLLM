@@ -38,6 +38,8 @@ int engine_eos=2,engine_eot=2;
 static float s_theta=100000.0f,s_eps=1e-5f;
 size_t engine_payload_offset(void){return s_vitalm.payload;}
 
+/* Owned by the single live engine thread; prefill wrappers restore on every return. */
+static int s_compute_vocab_head=1;
 // ----------------------------------------------------------------------------
 // Globals
 
@@ -625,7 +627,7 @@ float *engine_forward(Transformer *transformer, int token, int pos)
         TIMED(30,P_FINAL,rmsnorm(x, x, w->rms_final_weight, dim););
 
         TIMED(30,P_QUANT,quantize(&s->xq, x, dim););
-        TIMED(30,P_LOGITS,matmul(s->logits, &s->xq, w->wcls, dim, p->vocab_size););
+        if(s_compute_vocab_head){TIMED(30,P_LOGITS,matmul(s->logits, &s->xq, w->wcls, dim, p->vocab_size););}
     prof_forward_us+=sceKernelGetProcessTimeWide()-ft;
     return s->logits;
 }
@@ -1074,3 +1076,13 @@ int engine_sample(Sampler *sampler, float *logits)
 }
 
 #include "batch4-forward.inc"
+
+/* Intermediate prompt logits have no consumer. All transformer/state work still runs. */
+float*engine_prefill(Transformer*t,int token,int pos,int need_logits){
+ int saved=s_compute_vocab_head;s_compute_vocab_head=need_logits!=0;
+ float*result=engine_forward(t,token,pos);s_compute_vocab_head=saved;return result;
+}
+float*engine_prefill_batch4(Transformer*t,const int*tokens,int pos,int need_logits){
+ int saved=s_compute_vocab_head;s_compute_vocab_head=need_logits!=0;
+ float*result=engine_forward_batch4(t,tokens,pos);s_compute_vocab_head=saved;return result;
+}

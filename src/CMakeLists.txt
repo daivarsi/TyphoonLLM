@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake")
 project(vitalm_chat C)
-set(VITALM_APP_VERSION "03.05" CACHE STRING "Isolated candidate package version; not promoted")
+set(VITALM_APP_VERSION "03.06" CACHE STRING "Isolated candidate package version; not promoted")
 set(VITALM_APP_NAME "Typhoon Preview" CACHE STRING "Package name")
 set(VITALM_TITLE_ID "VLMTEST13" CACHE STRING "Isolated candidate only; do not install over VLMCHAT01")
 include("$ENV{VITASDK}/share/vita.cmake")

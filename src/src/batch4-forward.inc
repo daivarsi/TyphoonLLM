@@ -1,5 +1,5 @@
-/* Layer-major causal prefill for four known prompt tokens. Every layer and
- * all four vocabulary projections execute; no unused-head shortcut is used. */
+/* Layer-major causal prefill. Every layer/state update runs for all four tokens.
+ * Intermediate prompt batches may omit their unused vocabulary projection. */
 typedef struct {
  float *storage,*scales,*x,*q,*k,*v,*proj,*hb,*hb2,*logits;
  int8_t *quant;
@@ -107,7 +107,7 @@ float *engine_forward_batch4(Transformer *t,const int tokens[4],int pos){
   TIMED(30,P_FINAL,rmsnorm(x,x,w->rms_final_weight,dim););
   TIMED(30,P_QUANT,quantize(b->xq+j,x,dim););
  }
- TIMED(30,P_LOGITS,matmul(b->logits+(size_t)3*p->vocab_size,b->xq+3,w->wcls,dim,p->vocab_size););
+ if(s_compute_vocab_head){TIMED(30,P_LOGITS,matmul(b->logits+(size_t)3*p->vocab_size,b->xq+3,w->wcls,dim,p->vocab_size););}
  TIMED(30,P_COPY,memcpy(s->x,b->x+3*dim,dim*4););
  prof_forward_us+=sceKernelGetProcessTimeWide()-ft;
  return b->logits+(size_t)3*p->vocab_size;

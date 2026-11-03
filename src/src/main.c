@@ -113,7 +113,7 @@ int main(void)
     install_power_exit_handler();
 
     // raise the clocks to speed up inference (PCH-1000 arm / PCH-2000 bus)
-    scePowerSetArmClockFrequency(444000000);
+    /* Leave CPU frequency under the user's clock settings/plugin. */
     scePowerSetBusClockFrequency(222000000);
     scePowerSetGpuXbarClockFrequency(222000000);
 

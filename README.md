@@ -1,8 +1,11 @@
 # TyphoonLLM
 
+Runtime update **03.06** is available in this source: it skips unused intermediate prompt vocabulary projections while retaining the same model, prompt format and generated-token scoring. Physical paired tests showed about 14% less long-prompt time to first token; short-prompt total time was essentially unchanged. See [runtime results and scope](docs/RUNTIME_OPTIMIZATION.md). The frozen 03.05 release/model assets remain unchanged.
+
+
 **Fully local LLM inference on PlayStation Vita.**
 
-TyphoonLLM is an offline conversation application designed for homebrew-capable PS Vita hardware. It runs Liquid AI's LFM2.5-230M through a native ARMv7 runtime, evolving from earlier VitaLM and WoozyLLM experimentation. **03.05 is the current stable installed release**, retaining documented model limitations.
+TyphoonLLM is an offline conversation application designed for homebrew-capable PS Vita hardware. It runs Liquid AI's LFM2.5-230M through a native ARMv7 runtime, evolving from earlier VitaLM and WoozyLLM experimentation. **03.06 is the runtime update**, retaining documented model limitations and the unchanged 03.05 model assets.
 
 ## Features
 

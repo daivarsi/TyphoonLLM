@@ -7,7 +7,7 @@ Use CMake 3.16+, a C build backend and VitaSDK in a suitable host shell. The rec
 From the repository root, portable equivalents of the recorded production commands are:
 
 ```sh
-cmake -S src -B build -DVITALM_TITLE_ID=VLMCHAT01 -DVITALM_APP_NAME=TyphoonLLM -DVITALM_APP_VERSION=03.05
+cmake -S src -B build -DVITALM_TITLE_ID=VLMCHAT01 -DVITALM_APP_NAME=TyphoonLLM -DVITALM_APP_VERSION=03.06
 cmake --build build -j4
 ```
 

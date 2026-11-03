@@ -1,5 +1,8 @@
 # Benchmarks
 
+For the 03.06 matched runtime measurements at the verified user clock profile, see [Runtime optimization](docs/RUNTIME_OPTIMIZATION.md). Historical SDK clock labels below are readbacks, not independently verified physical clocks under PSVshellPlus.
+
+
 No evaluations were rerun. Ranges are observed minima/maxima, not confidence intervals.
 
 ## Physical Vita evidence

@@ -133,4 +133,7 @@ void engine_sampler_reset(Sampler *sampler);
  * model never attends to leftover keys/values from previous answers    */
 void engine_reset_context(Transformer *transformer);
 
+/* Scores may be omitted only when another prompt position will follow. */
+float*engine_prefill(Transformer*,int,int,int);
+float*engine_prefill_batch4(Transformer*,const int*,int,int);
 #endif /* WOOZYLLM_LLAMA_ENGINE_H */

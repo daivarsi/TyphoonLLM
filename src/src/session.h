@@ -12,6 +12,7 @@ typedef struct {
  void (*emit)(const char*,void*); void *emit_user;
  int (*cancelled)(void*);
 } Session;
+void session_set_prefill_head_skip(int enabled);
 void session_init(Session*,Transformer*,Tokenizer*);
 void session_reset(Session*);
 int session_start(Session*,const int*,int,int,int,int);

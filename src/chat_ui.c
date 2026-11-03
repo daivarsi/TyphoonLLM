@@ -1,5 +1,6 @@
 /* Native IME, bounded worker, and a view independent of model state. */
 #include <stdio.h>
+#include "src/session.h"
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
@@ -86,6 +87,7 @@ int main(void){
  if(!strncmp(stress_prompt,"WAIT ",5)){int ms=atoi(stress_prompt+5);if(ms<0)ms=0;if(ms>30000)ms=30000;stress_wait_until=sceKernelGetProcessTimeWide()+(uint64_t)ms*1000;dbg_log("TEST wait_ms=%d",ms);}
  else if(!strncmp(stress_prompt,"AUTO ",5)){llama_worker_set_auto(atoi(stress_prompt+5));dbg_log("TEST auto=%d",atoi(stress_prompt+5));}
  else if(!strcmp(stress_prompt,"ASSERT_DEFAULT")){dbg_log("TEST default_multi=%d",multi);}
+ else if(!strncmp(stress_prompt,"PREFILL_HEAD_SKIP ",18)){session_set_prefill_head_skip(atoi(stress_prompt+18));dbg_log("TEST prefill_head_skip=%d",atoi(stress_prompt+18));}
  else if(!strcmp(stress_prompt,"CLEAR")){clear_chat();dbg_log("TEST clear");}
  else if(!strncmp(stress_prompt,"CONTINUE",8)){test_cancel_ms=atoi(stress_prompt+8);test_at=sceKernelGetProcessTimeWide();stress_token_start=test_at;stress_cancel=test_cancel_ms>0;stress_index++;continue_answer();dbg_log("TEST continue index=%d cancel_ms=%d",stress_index,test_cancel_ms);}
  else{char*q=stress_prompt;char*fields[7];int valid=1;for(int i=0;i<7;i++){fields[i]=q;char*t=strchr(q,'\t');if(!t){valid=0;break;}*t=0;q=t+1;}
